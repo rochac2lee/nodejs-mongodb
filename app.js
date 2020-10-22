@@ -8,6 +8,8 @@ MongoClient.connect(servidor, function(erro, db) {
     else
         console.log("Conectado!");
 
+    /* Insere apenas um registro
+    
     var estudante = {
         nome: "Cleberli",
         curso: "Tads19",
@@ -21,6 +23,25 @@ MongoClient.connect(servidor, function(erro, db) {
         console.log("Erro ao inserir documento: " + erro);
     else
         console.log("Documento inserido com sucesso!");
+
+    });
+    
+    
+    */
+
+    var alunos = [
+        { nome: "Cleberli", curso: "Tads19", amigos: ["Lucas Galdino", "Bruna Letícia"] },
+        { nome: "Yan", curso: "Tads20", amigos: ["Cleberli", "Hideki"] },
+        { nome: "Galdino", curso: "Tads19", amigos: ["Cleberli", "Yan"] }
+    ];
+
+    var colecao = db.collection("alunos");
+
+    colecao.insertMany(alunos, function(erro, resultado) {
+        if (erro)
+        console.log("Erro ao inserir documento: " + erro);
+    else
+        console.log("Foram inseridos " + resultado.insertedCount + " alunos!");
 
     });
 
