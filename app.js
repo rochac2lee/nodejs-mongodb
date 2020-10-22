@@ -8,7 +8,9 @@ MongoClient.connect(servidor, function(erro, db) {
     else
         console.log("Conectado!");
 
-    /* Insere apenas um registro
+    /*
+
+    *** Insere apenas um registro ***
     
     var estudante = {
         nome: "Cleberli",
@@ -26,9 +28,7 @@ MongoClient.connect(servidor, function(erro, db) {
 
     });
     
-    */
-
-    /* Insere vários registros de uma vez
+    *** Insere vários registros de uma vez ***
 
     var alunos = [
         { nome: "Cleberli", curso: "Tads19", amigos: ["Lucas Galdino", "Bruna Letícia"] },
@@ -46,9 +46,9 @@ MongoClient.connect(servidor, function(erro, db) {
 
     });
 
-    */
+    /*
 
-    /* Atualiza um documento
+    *** Atualiza um documento ***
     
     var estudante = {
         nome: "Cleberli da Rocha",
@@ -68,7 +68,7 @@ MongoClient.connect(servidor, function(erro, db) {
 
     });
     
-    */
+    *** Atualiza vários documentos ***
 
     var colecao = db.collection("alunos");
 
@@ -84,7 +84,47 @@ MongoClient.connect(servidor, function(erro, db) {
 
     });
     
+    *** Exclusão de um documento ***
 
+    var colecao = db.collection("alunos");
+
+    var filtro = { nome : "Galdino" };
+
+    colecao.deleteOne(filtro, function(erro, responsta) {
+    if (erro)
+        console.log("Erro ao excluir documento: " + erro);
+    else
+        console.log("Documento excluído com sucesso!");
+
+    });
+
+    *** Excluir vários documentos ***
+
+    var colecao = db.collection("alunos");
+
+    var filtro = { matriculado : true };
+
+    colecao.deleteMany(filtro, function(erro, responsta) {
+    if (erro)
+        console.log("Erro ao excluir documentos: " + erro);
+    else
+        console.log("Documentos excluídos com sucesso!");
+
+    });
+
+    */
+
+    var colecao = db.collection("alunos");
+
+    var filtro = { };
+
+    colecao.find(filtro).toArray(function(erro, alunos) {
+        alunos.forEach(function(aluno) {
+            console.log("\nNome: " + aluno.nome);
+            console.log("Curso: " + aluno.curso);
+            console.log("Amigos: " + aluno.amigos + "\n");
+        });
+    });
 
     db.close();
 });
